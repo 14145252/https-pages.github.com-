@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>北道动漫 - BDDM漫展</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+        
+        :root {
+            --primary: #00a1d6;
+            --secondary: #fb7299;
+            --dark: #181a20;
+            --light: #f4f5f7;
+            --accent: #f25d8e;
+            --gray: #6d757a;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #222;
+            overflow-x: hidden;
+            background-image: linear-gradient(135deg, #f5f7fa 0%, #e4ecf7 100%);
+        }
+        
+        /* 导航栏样式 */
+        header {
+            background: linear-gradient(90deg, var(--dark) 0%, #1c1f25 100%);
+            color: white;
+            padding: 15px 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 2px;
+        }
+        
+        .company-name {
+            font-size: 1.2rem;
+            color: var(--light);
+            font-weight: 300;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 8px 0;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 8px 15px;
+        }
+        
+        .search-box input {
+            background: transparent;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            outline: none;
+            width: 200px;
+        }
+        
+        .search-box i {
+            color: var(--light);
+            cursor: pointer;
+        }
+        
+        /* 横幅区域 */
+        .banner {
+            background: linear-gradient(135deg, #1c1f25 0%, var(--dark) 100%);
+            height: 500px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            padding: 0 5%;
+        }
+        
+        .banner-content {
+            max-width: 600px;
+            z-index: 10;
+            color: white;
+        }
+        
+        .banner h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #ff7bac, #00a1d6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .banner p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            color: #e0e0e0;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 12px 35px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .banner-image {
+            position: absolute;
+            right: 5%;
+            bottom: 0;
+            width: 500px;
+            height: 450px;
+            background: url('https://i.postimg.cc/9fKfQqJz/anime-character.png') no-repeat center bottom;
+            background-size: contain;
+            z-index: 5;
+        }
+        
+        /* 小北IP区域 */
+        .ip-section {
+            padding: 80px 5%;
+            background: white;
+            text-align: center;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+        
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 50px;
+            line-height: 1.6;
+        }
+        
+        .ip-container {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+        
+        .ip-character {
+            width: 280px;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .ip-character:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .ip-img {
+            height: 300px;
+            background: linear-gradient(45deg, #e4ecf7, #d1e3ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .ip-img i {
+            font-size: 8rem;
+            color: var(--primary);
+        }
+        
+        .ip-info {
+            padding: 25px;
+        }
+        
+        .ip-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .ip-info p {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+        
+        /* 活动区域 */
+        .events {
+            background: linear-gradient(135deg, #f0f5ff 0%, #e6f0ff 100%);
+            padding: 80px 5%;
+        }
+        
+        .events-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .event-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .event-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .event-img {
+            height: 200px;
+            background: linear-gradient(45deg, #b8e1ff, #a2d2ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .event-img i {
+            font-size: 5rem;
+            color: var(--primary);
+        }
+        
+        .event-info {
+            padding: 25px;
+        }
+        
+        .event-date {
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .event-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .event-info p {
+            color: var(--gray);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        /* 嘉宾区域 */
+        .guests {
+            padding: 80px 5%;
+            background: white;
+        }
+        
+        .guests-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+        
+        .guest-card {
+            width: 250px;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .guest-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .guest-img {
+            height: 250px;
+            background: linear-gradient(45deg, #ffd6e7, #ffc2d6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .guest-img i {
+            font-size: 5rem;
+            color: var(--secondary);
+        }
+        
+        .guest-info {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .guest-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+        
+        .guest-info p {
+            color: var(--gray);
+            font-style: italic;
+        }
+        
+        /* 页脚 */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 5% 30px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 20px;
+        }
+        
+        .footer-about p {
+            color: #b0b0b0;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .footer-links h4 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: white;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-links h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #b0b0b0;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #b0b0b0;
+            font-size: 0.9rem;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .banner {
+                height: auto;
+                padding: 80px 5%;
+                text-align: center;
+                flex-direction: column;
+            }
+            
+            .banner-content {
+                text-align: center;
+                margin-bottom: 50px;
+            }
+            
+            .banner-image {
+                position: relative;
+                right: auto;
+                width: 100%;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .banner h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header>
+        <div class="logo-container">
+            <div class="logo">BDDM</div>
+            <div class="company-name">郑州市北道动漫文化传媒有限公司</div>
+        </div>
+        <div class="nav-links">
+            <a href="#"><i class="fas fa-home"></i> 首页</a>
+            <a href="#"><i class="fas fa-calendar-alt"></i> 活动</a>
+            <a href="#"><i class="fas fa-users"></i> 嘉宾</a>
+            <a href="#"><i class="fas fa-paint-brush"></i> 作品</a>
+            <a href="#"><i class="fas fa-info-circle"></i> 关于</a>
+        </div>
+        <div class="search-box">
+            <input type="text" placeholder="搜索漫展信息...">
+            <i class="fas fa-search"></i>
+        </div>
+    </header>
+
+    <!-- 横幅区域 -->
+    <section class="banner">
+        <div class="banner-content">
+            <h1>2025 BDDM动漫嘉年华</h1>
+            <p>北道动漫展，汇集顶尖动漫IP、知名声优、人气Coser和动漫爱好者。在这里，体验最纯粹的二次元文化！</p>
+            <a href="#" class="btn">立即购票 <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="banner-image"></div>
+    </section>
+
+    <!-- 小北IP区域 -->
+    <section class="ip-section">
+        <h2 class="section-title">小北IP家族</h2>
+        <p class="section-subtitle">北道动漫原创IP形象"小北"系列，深受广大动漫爱好者喜爱，已成为郑州动漫文化的代表符号</p>
+        
+        <div class="ip-container">
+            <div class="ip-character">
+                <div class="ip-img">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="ip-info">
+                    <h3>机甲小北</h3>
+                    <p>未来科技风格的小北机甲战士，配备激光武器和能量护盾，守护动漫世界的和平。</p>
+                </div>
+            </div>
+            
+            <div class="ip-character">
+                <div class="ip-img">
+                    <i class="fas fa-cat"></i>
+                </div>
+                <div class="ip-info">
+                    <h3>萌宠小北</h3>
+                    <p>可爱猫耳造型的小北萌宠形态，大眼睛和毛茸茸的尾巴俘获了无数粉丝的心。</p>
+                </div>
+            </div>
+            
+            <div class="ip-character">
+                <div class="ip-img">
+                    <i class="fas fa-dragon"></i>
+                </div>
+                <div class="ip-info">
+                    <h3>龙骑士小北</h3>
+                    <p>中世纪奇幻风格的龙骑士小北，驾驭着传说中的飞龙，探索未知的魔法世界。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 活动区域 -->
+    <section class="events">
+        <h2 class="section-title">近期活动</h2>
+        <p class="section-subtitle">精彩纷呈的动漫活动，涵盖展览、比赛、签售会等多种形式，总有一款适合你</p>
+        
+        <div class="events-container">
+            <div class="event-card">
+                <div class="event-img">
+                    <i class="fas fa-microphone-alt"></i>
+                </div>
+                <div class="event-info">
+                    <span class="event-date">2025年</span>
+                    <h3>声优见面会</h3>
+                    <p>与知名声优零距离互动，现场演绎经典角色台词，分享配音幕后故事。</p>
+                    <a href="#" class="btn">查看详情</a>
+                </div>
+            </div>
+            
+            <div class="event-card">
+                <div class="event-img">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <div class="event-info">
+                    <span class="event-date">2025年</span>
+                    <h3>Cosplay大赛</h3>
+                    <p>年度顶级Cosplay赛事，专业评审团，丰厚奖金，展示你的创意与才华。</p>
+                    <a href="#" class="btn">查看详情</a>
+                </div>
+            </div>
+            
+            <div class="event-card">
+                <div class="event-img">
+                    <i class="fas fa-palette"></i>
+                </div>
+                <div class="event-info">
+                    <span class="event-date">2025年</span>
+                    <h3>原创插画展</h3>
+                    <p>汇聚国内顶尖插画师作品，展示最新动漫艺术风格，提供创作交流平台。</p>
+                    <a href="#" class="btn">查看详情</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 嘉宾区域 -->
+    <section class="guests">
+        <h2 class="section-title">特邀嘉宾</h2>
+        <p class="section-subtitle">国内外知名动漫创作者、声优、Coser齐聚一堂，与你共襄盛举</p>
+        
+        <div class="guests-container">
+            <div class="guest-card">
+                <div class="guest-img">
+                    <i class="fas fa-user-ninja"></i>
+                </div>
+                <div class="guest-info">
+                    <h3>小北</h3>
+                    <p>日本知名声优</p>
+                </div>
+            </div>
+            
+            <div class="guest-card">
+                <div class="guest-img">
+                    <i class="fas fa-user-astronaut"></i>
+                </div>
+                <div class="guest-info">
+                    <h3>小北</h3>
+                    <p>人气Coser</p>
+                </div>
+            </div>
+            
+            <div class="guest-card">
+                <div class="guest-img">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <div class="guest-info">
+                    <h3>小北</h3>
+                    <p>著名插画师</p>
+                </div>
+            </div>
+            
+            <div class="guest-card">
+                <div class="guest-img">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <div class="guest-info">
+                    <h3>小北</h3>
+                    <p>动漫导演</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-about">
+                <div class="footer-logo">BDDM</div>
+                <p>郑州市北道动漫文化传媒有限公司致力于打造中国一流的动漫文化平台，推动本土原创动漫IP发展，传播积极向上的二次元文化。</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-weibo"></i></a>
+                    <a href="#"><i class="fab fa-bilibili"></i></a>
+                    <a href="#"><i class="fab fa-qq"></i></a>
+                    <a href="#"><i class="fab fa-weixin"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <h4>快速链接</h4>
+                <ul>
+                    <li><a href="#"><i class="fas fa-angle-right"></i> 首页</a></li>
+                    <li><a href="#"><i class="fas fa-angle-right"></i> 关于我们</a></li>
+                    <li><a href="#"><i class="fas fa-angle-right"></i> 活动日历</a></li>
+                    <li><a href="#"><i class="fas fa-angle-right"></i> 参展指南</a></li>
+                    <li><a href="#"><i class="fas fa-angle-right"></i> 媒体中心</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h4>参展信息</h4>
+                <ul>
+                    <li><a href="#"><i class="fas fa-angle-right"></i> 展商申请</a></li>
+                    <li><a href="#"><i class="fas fa-angle-right"></i> 票务信息</a></li>
+                    <li><a href="#"><i class="fas fa-angle-right"></i> 会场地图</a></li>
+                    <li><a href="#"><i class="fas fa-angle-right"></i> 住宿推荐</a></li>
+                    <li><a href="#"><i class="fas fa-angle-right"></i> 常见问题</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h4>联系我们</h4>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> 郑州市金水区文化路88号</li>
+                    <li><i class="fas fa-phone"></i> 15236570751</li>
+                    <li><i class="fas fa-envelope"></i> 15236570751@163.com</li>
+                    <li><i class="fas fa-clock"></i> 周一至周五 9:00-18:00</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            &copy; 2024 郑州市北道动漫文化传媒有限公司 BDDM动漫文化品牌 豫ICP备********号
+        </div>
+    </footer>
+
+    <script>
+        // 简单的滚动效果
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // 鼠标移动效果
+        document.addEventListener('mousemove', (e) => {
+            const banner = document.querySelector('.banner');
+            const x = (window.innerWidth - e.pageX) / 50;
+            const y = (window.innerHeight - e.pageY) / 50;
+            banner.style.backgroundPosition = `${x}px ${y}px`;
+        });
+    </script>
+</body>
+</html>
